@@ -1,0 +1,45 @@
+.homepage {
+    background-image: url('/img/fuelmeter.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    height: 600px;
+    background-color: #203240;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    color:white;
+}
+
+.homepage h1{
+    color:white;
+    font-size: 80px;
+}
+
+
+.homepage_main{
+    position: relative;
+    top: 28%;
+    text-align: center;
+    margin: auto;
+    width: 400px;
+    height: 300px;
+}
+
+.homepage_second{
+    // background-color: #ba5b5f;
+}
+
+.homepage_square{
+    height: 270px;
+    text-align: center;
+    width: 100%;
+}
+.homepage_square:hover i{
+    font-size:80px
+}
+
+
+.mdl-card__supporting-text{
+  font-size: 17px;
+}

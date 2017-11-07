@@ -1,0 +1,57 @@
+<!doctype html>
+<html ng-app="MyApp">
+<head>
+  <base href="/">
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/img/fuel-guru.png" >
+  <title>Fuel Guru</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="/css/vendor.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyB_hWH944ixwXX1x3KXIAXynY99IDfR2FQ&libraries=weather,geometry,visualization,places'></script>  
+</head>
+
+<body>
+  <div ng-controller="HeaderCtrl" class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--white  mdl-color-text--white">
+        <div class="mdl-layout__header-row mdl-color-text-black">
+          <span class="mdl-layout-title">{{siteTitle}}</span>
+          <div class="mdl-layout-spacer"></div>
+          <button ng-if="isAuthenticated()" class="mdl-button mdl-js-button" id="hdrbtn">
+              <img width="30px"ng-src="{{currentUser.picture || currentUser.gravatar}}"> {{currentUser.name || currentUser.email || currentUser.id}}
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+            <li class="mdl-menu__item"><i class="fa fa-user mdl-color-text--black material-icons" aria-hidden="true"></i> Profile Settings</li>
+            <li class="mdl-menu__item"><i class="fa fa-sign-in mdl-color-text--black material-icons" aria-hidden="true"></i> Log Out</li>
+          </ul>
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--black mdl-color-text--white">
+        <nav class="demo-navigation mdl-navigation">
+            <div href="/">
+              <img style="margin-left: 20px;" width="40px" src="/img/fuel-guru.png"> </img>
+            </div>
+            <br>
+            <a ng-class="isActive('/home')" href="/" class="mdl-navigation__link  mdl-color-text--white" href=""><i class="mdl-color-text--white material-icons">home</i><span>Home</span></a>
+            <a ng-class="isActive('/localsearch')" href="/localsearch" class="mdl-navigation__link  mdl-color-text--white" href=""><i class="mdl-color-text--white material-icons">search</i><span>Local Search</span></a>
+            <a ng-class="isActive('/tripsearch')" href="/tripsearch" class="mdl-navigation__link  mdl-color-text--white" href=""><i class="mdl-color-text--white material-icons">near_me</i><span>Trip Search</span></a>
+            <a ng-class="isActive('/pricetrend')" href="/pricetrend" class="mdl-navigation__link  mdl-color-text--white" href=""><i class="mdl-color-text--white material-icons">show_chart</i><span>Price Trends</span></a>
+            
+            <div class="mdl-layout-spacer"></div>
+            <a href="/faqs" ng-class="isActive('/faqs')" class="mdl-navigation__link  mdl-color-text--white" href=""><i class="mdl-color-text--white material-icons">help</i><span>Help</span></a>
+            <a ng-if="isAuthenticated()" ng-class="isActive('/account')" href="/account" class="mdl-navigation__link  mdl-color-text--white" href=""><i class="mdl-color-text--white material-icons">settings_application</i><span>Settings</span></a>
+            <a ng-if="isAuthenticated()" ng-click="logout()" href="#" class="mdl-navigation__link  mdl-color-text--white"><i class="fa fa-sign-out mdl-color-text--white material-icons" aria-hidden="true"></i><span>Log Out</span></a>
+            <a ng-if="!isAuthenticated()" class="mdl-navigation__link  mdl-color-text--white" ng-class="isActive('/signup')" href="/signup"><i class="fa fa-user mdl-color-text--white material-icons" aria-hidden="true"></i><span>Sign Up</span></a>
+            <a ng-if="!isAuthenticated()" class="mdl-navigation__link  mdl-color-text--white" ng-class="isActive('/login')" href="/login"><i class="fa fa-sign-in mdl-color-text--white material-icons" aria-hidden="true"></i><span>Log In</span></a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--white"><div ng-view></div></main>
+  </div>
+</body>
+<script src="https://use.fontawesome.com/88d820320f.js"></script>
+<script src="/js/vendor.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/templates.js"></script>
+</html>

@@ -1,0 +1,50 @@
+<div>
+<br><br></br>
+<div class="mdl-navigation mdl-layout-spacer">
+  <div class="mdl-layout-spacer"></div>
+  <div class="mdl-grid">
+    <div class="mdl-cell">
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width:450px; padding-top: 30px">
+        <div class="mdl-card__title" style="height:10px">
+          <center><h1 class="mdl-card__title-text" style="color:black">Log in</h1></center>
+        </div>
+        <div class="mdl-card__supporting-text">
+          <div ng-if="messages.error" role="alert" class="alert alert-danger">
+            <div ng-repeat="error in messages.error">{{error.msg}}</div>
+          </div>
+          <form ng-submit="login()">
+            <center>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="email" name="email" id="email" ng-model="user.email" placeholder="Email" autofocus>
+              <!-- <label class="mdl-textfield__label" for="sample3">Email</label> -->
+            </div>
+          </center><center>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="password" name="password" id="password" placeholder="Password" ng-model="user.password">
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--raised">Log in</button>          
+          </form>
+          <br></br><center><div class="mdl-button mdl-js-button mdl-button--accent"><a href="/forgot"><strong>Forgot your password?</strong></a></div></center>
+          <center>
+          <!-- <div class="hr-title"><span>or</span></div> -->
+          <!-- <div class="btn-toolbar text-center"> -->
+            <md-button ng-click="authenticate('facebook')">Log in with <i class="fa fa-facebook" aria-hidden="true"></i> Facebook</md-button>
+            <md-button ng-click="authenticate('twitter')">Log in with <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</md-button>
+            <md-button ng-click="authenticate('google')">Log in with <i class="fa fa-google" aria-hidden="true"></i> Google</md-button>
+          </center>  
+            <!-- </div> --><br>
+          <center class="text-center">
+              <br>Don't have an account? <a href="/signup"><strong>Sign up</strong></a>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mdl-layout-spacer"></div>
+</div>
+<br/>
+<br/>
+<br/>
+
+
+</div>

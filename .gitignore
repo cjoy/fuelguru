@@ -1,0 +1,36 @@
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+pids
+logs
+results
+tmp
+coverage
+dist
+
+# API keys
+.env
+
+# Dependency directory
+node_modules
+bower_components
+flask_fuel_guru/flask
+
+# Editors
+.idea
+*.iml
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Hiding our ML models :)
+flask_fuel_guru

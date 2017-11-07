@@ -1,0 +1,199 @@
+<div class="local-card-wide mdl-card mdl-shadow--2dp">
+    <div class="row searchbar">
+        <div class="col-md-2"> </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-2">
+                    <h4 style="margin-top: 25px"> Area</h4>
+                </div>
+                <div class="col-md-7">
+                    <div style="width:100%;" class="mdl-textfield mdl-js-textfield ">
+                        <input class="mdl-textfield__input" type="text" id="sample1" vs-google-autocomplete="options"
+                        ng-model="address.name"
+                        vs-place="address.place"
+                        vs-place-id="address.components.placeId"
+                        vs-street-number="address.components.streetNumber"
+                        vs-street="address.components.street"
+                        vs-city="address.components.city"
+                        vs-state="address.components.state"
+                        vs-country-short="address.components.countryCode"
+                        vs-country="address.components.country"
+                        vs-post-code="address.components.postCode"
+                        vs-district="address.components.district"
+                        vs-latitude="address.components.location.lat"
+                        vs-longitude="address.components.location.long">
+                    </div>
+                </div>
+                <div class="col-md-3 searchButton">
+                    <button ng-click="showAdvanced()"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color-text--white" style="width:100%; margin-top:20px">
+                        Advanced Options
+                    </button>
+                </div>
+
+            </div>
+
+            <div ng-show="advanced">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4 style="margin-top: 25px"> Fuel Type</h4>
+                    </div>
+                    <div class="col-md-7">
+                        <div style="width:100%;" class="mdl-textfield mdl-js-textfield ">
+                            <select class="mdl-textfield__input" ng-init="octane=''" ng-model="octane">
+                                <option value=""></option>
+                                <option value="E10">E10</option>
+                                <option value="U91">Unleaded 91</option>
+                                <option value="P95">Premium 95</option>
+                                <option value="P98">Premium 98</option>
+                                <option value="PDL">Diesel</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div  class="col-md-2">
+                        <h4 style="margin-top: 25px"> Fuel Vouchers</h4>
+                    </div>
+                    <div class="col-md-7">
+                        <br/>
+                            <md-checkbox ng-model="coles" ng-init="coles=false" class="green">
+                                    Coles Receipt
+                            </md-checkbox>
+                            <md-checkbox ng-model="woolworths" ng-init="woolworths=false" class="green">
+                                    Woolworths Receipt
+                            </md-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="row local-green">
+                <button  ng-click="getPrices(null, null)" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color-text--white" style="width:100%; margin-top:20px">
+                        Search
+                </button>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>
+
+<div class="localsearch-main" >
+    <br />
+    <div class="mdl-card localsearch-main-card mdl-shadow--2dp"ng-show="searched">
+            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect localsearch-main-tabs" >
+                <div class="mdl-tabs__tab-bar">
+                    <div ng-href="#Sort-panel" class="mdl-tabs__tab">Sort by:</div>
+                    <a ng-click="sortByKey(stations, 'cheapestprice')" ng-href="#Price-panel" class="mdl-tabs__tab is-active">Price</a>
+                    <a ng-click="sortByKey(stations, 'distance')" ng-href="#Price-panel" class="mdl-tabs__tab">distance</a>
+                </div>
+
+                <div class="mdl-tabs__panel is-active" id="Price-panel">
+                    <div ng-repeat="station in stations"><br>
+                        <ul class="local-list-three mdl-list">
+                            <li class="mdl-list__item mdl-list__item--three-line">
+                                <span class="mdl-list__item-primary-content">
+                                <image class="mdl-list__item-avatar mdl-shadow--3dp" ng-src="/img/{{station.pic}}" alt="Mountain View" style="width:50px;height:50px;">
+                                <span>{{station.name}}</span>
+                                <span ng-show="octane" class="mdl-list__item-text-body">
+                                    <div class="col-md-4">
+                                        Distance: {{station.distance}} km
+                                        <br/>
+                                        Brand: {{station.brand}}
+                                    </div>
+                                    <div ng-repeat="price in station.prices">
+                                      <div ng-show="price.fueltype==octane">
+                                        <div class="col-md-3">
+                                            Type: {{price.fueltype}}
+                                            <br>
+                                            Price: {{price.price}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                </span>
+                                <span ng-hide="octane" class="mdl-list__item-text-body">
+                                    <div class="col-md-4">
+                                        Distance: {{station.distance}} km
+                                        <br/>
+                                        Brand: {{station.brand}}
+                                    </div>
+                                    <!-- <div class="col-md-3">
+                                        Cheapest Type: {{station.cheapesttype}}
+                                        <br>
+                                        Cheapest Price: {{station.cheapestprice}}
+                                        <br>
+                                        Average Price: {{station.averageprice}}
+
+                                    </div> -->
+                                  <div class="col-md-1" style="border:1">
+                                  Type: <br> Price:
+                                  </div>
+                                  <div ng-repeat="price in station.prices">
+                                    <div class="col-md-1" style="border:1">
+                                      {{price.fueltype}} <br> {{price.price | number : 1}}
+                                    </div>
+                                  </div>
+                                </span>
+                                </span>
+                                <span class="mdl-list__item-secondary-content">
+                                <a ng-click="showDiv($index, station)"  class="mdl-list__item-secondary-action" href="#"><i class="material-icons">location_on</i><span class="mdl-list__item-secondary-info">Show Map</span></a>
+                                <a ng-click="showChart($index, station)"  class="mdl-list__item-secondary-action" href="#"><i class="material-icons">show_chart</i><span class="mdl-list__item-secondary-info">Show Price Trend</span></a>
+                                </span>
+
+                            </li>
+                        </ul>
+                        <div ng-if="hiddenDiv[$index]">
+                            <div class="panel panel-default">
+                              <div class="panel-body">
+                                <ui-gmap-google-map center='mapCenter[station.stationcode]' zoom='15' id="map" control='map.control' center='map.center'>
+                                    <ui-gmap-marker ng-repeat="m in station_markers" coords="m" options="m.options" idkey="m.id">
+                                    </ui-gmap-marker>
+                                </ui-gmap-google-map>
+                                <form class="form-horizontal" role="form">
+                                  <div class="form-group">
+                                    <label for="origin" class="col-sm-2 control-label">Origin</label>
+                                    <div class="col-sm-8">
+                                      <input class="mdl-textfield__input" type="text" id="sample2" vs-google-autocomplete="options" ng-model="directions.origin"
+                                      ng-model="address.name"
+                                      vs-place="address.place"
+                                      vs-place-id="address.components.placeId"
+                                      vs-street-number="address.components.streetNumber"
+                                      vs-street="address.components.street"
+                                      vs-city="address.components.city"
+                                      vs-state="address.components.state"
+                                      vs-country-short="address.components.countryCode"
+                                      vs-country="address.components.country"
+                                      vs-post-code="address.components.postCode"
+                                      vs-district="address.components.district"
+                                      vs-latitude="address.components.location.lat"
+                                      vs-longitude="address.components.location.long">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="destination" class="col-sm-2 control-label">Destination</label>
+                                    <div class="col-sm-8">
+                                      <input type="text" id="destination" class="form-control" ng-model="directions.destination" ng-init="directions.destination=station.address"/>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-8">
+                                      <button class="btn btn-primary" ng-click="getDirections(station)">Get Directions</button>
+                                    </div>
+                                  </div>
+                                </form>
+
+                                <div id="directionsList" ng-show="directions.showList" class="panel panel-primary"></div>
+                              </div>
+                            </div>
+                        </div>
+                        <div ng-if="hiddenChart[$index]">
+                            <div style="width:80%; margin:auto">
+                                    <canvas class="chart chart-line" chart-data="data" chart-labels="labels"
+                                    chart-series="series" chart-colors="colors" chart-click="onClick" chart-options="coptions"></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+         <br/>
+    </div>
+    <br />
+</div>
